@@ -1,0 +1,45 @@
+﻿//Regular expression replace
+	//For PDF
+		//process "-" at end of line
+		document.selection.Replace("-\\n","",eeFindNext | eeFindSaveHistory | eeReplaceAll | eeFindReplaceRegExp);
+		//remove newlines
+		document.selection.Replace("\\n"," ",eeFindNext | eeFindSaveHistory | eeReplaceAll | eeFindReplaceRegExp);
+	//remove "[anything]"
+	document.selection.Replace("\\[.*?\\]","",eeFindNext | eeFindSaveHistory | eeReplaceAll | eeFindReplaceRegExp);
+	//remove "{anything}"
+	document.selection.Replace("\\{.*?\\}","",eeFindNext | eeFindSaveHistory | eeReplaceAll | eeFindReplaceRegExp);
+	//remove "(digital~)"
+	document.selection.Replace("\\(\\d.*?\\)","",eeFindNext | eeFindSaveHistory | eeReplaceAll | eeFindReplaceRegExp);
+	//Remove figure and table legends
+	document.selection.Replace("^figure.*?\\n+?.*?\\n","",eeFindNext | eeFindSaveHistory | eeReplaceAll | eeFindReplaceRegExp);
+	document.selection.Replace("^table.*?\\n+?.*?\\n","",eeFindNext | eeFindSaveHistory | eeReplaceAll | eeFindReplaceRegExp);
+	document.selection.Replace("^figure.*?$","",eeFindNext | eeFindSaveHistory | eeReplaceAll | eeFindReplaceRegExp);
+	document.selection.Replace("^table.*?$","",eeFindNext | eeFindSaveHistory | eeReplaceAll | eeFindReplaceRegExp);
+	//remove "doi~"
+	document.selection.Replace("doi.*$","",eeFindNext | eeFindSaveHistory | eeReplaceAll | eeFindReplaceRegExp);
+	//remove extra newline
+	document.selection.Replace("\\n+?\\n\\n","\\n",eeFindNext | eeFindSaveHistory | eeReplaceAll | eeFindReplaceRegExp);
+	
+//only word
+document.selection.Replace("Ti","Titanium",eeFindNext | eeFindSaveHistory | eeFindReplaceCase | eeReplaceAll | eeFindReplaceOnlyWord);
+document.selection.Replace("Ta","Tantalum",eeFindNext | eeFindSaveHistory | eeFindReplaceCase | eeReplaceAll | eeFindReplaceOnlyWord);
+document.selection.Replace("Wnt","wint",eeFindNext | eeFindSaveHistory | eeFindReplaceCase | eeReplaceAll | eeFindReplaceOnlyWord);
+document.selection.Replace("type I","type 1",eeFindNext | eeFindSaveHistory | eeFindReplaceCase | eeReplaceAll | eeFindReplaceOnlyWord);
+document.selection.Replace("type II","type 2",eeFindNext | eeFindSaveHistory | eeFindReplaceCase | eeReplaceAll | eeFindReplaceOnlyWord);
+document.selection.Replace("PTHrP","parathyroid hormone-related protein",eeFindNext | eeFindSaveHistory | eeFindReplaceCase | eeReplaceAll | eeFindReplaceOnlyWord);
+document.selection.Replace("IL-","interleukin ",eeFindNext | eeFindSaveHistory | eeFindReplaceCase | eeReplaceAll | eeFindReplaceOnlyWord);
+document.selection.Replace("NaOH","Sodium hydroxide",eeFindNext | eeFindSaveHistory | eeFindReplaceCase | eeReplaceAll | eeFindReplaceOnlyWord);
+//Normal replace
+document.selection.Replace(":"," ",eeFindNext | eeFindSaveHistory | eeReplaceAll);
+document.selection.Replace("+/−"," plus or minus ",eeFindNext | eeFindSaveHistory | eeReplaceAll);
+document.selection.Replace("+"," positive ",eeFindNext | eeFindSaveHistory | eeReplaceAll);
+document.selection.Replace("T β RII","TGF- β type 2 receptor",eeFindNext | eeFindSaveHistory | eeFindReplaceCase | eeReplaceAll);
+document.selection.Replace("TβRII","TGF- β type 2 receptor",eeFindNext | eeFindSaveHistory | eeFindReplaceCase | eeReplaceAll);
+document.selection.Replace("T β RI","TGF- β type 1 receptor",eeFindNext | eeFindSaveHistory | eeFindReplaceCase | eeReplaceAll);
+document.selection.Replace("TβRI","TGF- β type 1 receptor",eeFindNext | eeFindSaveHistory | eeFindReplaceCase | eeReplaceAll);
+document.selection.Replace("/"," ",eeFindNext | eeFindSaveHistory | eeReplaceAll);
+
+document.selection.Replace("α"," alpha ",eeFindNext | eeFindSaveHistory | eeReplaceAll);
+document.selection.Replace("β"," beta ",eeFindNext | eeFindSaveHistory | eeReplaceAll);
+document.selection.Replace("κ"," kappa ",eeFindNext | eeFindSaveHistory | eeReplaceAll);
+
