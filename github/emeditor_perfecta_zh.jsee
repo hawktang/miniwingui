@@ -1,0 +1,315 @@
+/**
+ * 根据输入的正则表达式，提取与之匹配的字符串，并新建一个文档显示所有匹配的字符串，
+ * 显示时每个匹配项占一行
+ *
+ * @author     Guapo
+ * @version    v1.2
+ * @date       2011年11月17日 20:37:04
+ * @history    v1.2 修改原有显示结果方式，采用一次性输出而不是逐行输出
+ */
+function getText()
+{
+	var _regex=prompt("本程序用来提取与您输入的正则表达式相匹配的字符串，请输入正则表达式","匹配结果将会在一个新文件中输出，每个匹配项占一行");
+	if(_regex==""||_regex==null)
+	{
+		alert("输入为空，请重新输入");
+		return;
+	}
+	var regex=new RegExp(_regex,"gim");
+	document.selection.SelectAll();
+	var textInCurrentDocument=document.selection.Text;
+	var matchResultArray=textInCurrentDocument.match(regex);
+	if(matchResultArray)
+	{
+		editor.NewFile();
+		document.write(matchResultArray.join("\n"));
+	}
+	else
+	{
+		alert("没有找到匹配的字符串");
+	}
+}
+
+
+/**
+ * 拷贝正在编辑的文档的完整路径(含文件名和扩展名)到剪贴板
+ *
+ * @author     Guapo
+ * @version    v1.0
+ */
+function copyFullName()
+{
+	if(document.Saved)
+	{
+		document.CopyFullName();
+	}
+	else
+	{
+		alert("请保存文件后再执行此命令");
+	}
+}
+
+
+/**
+ * 拷贝正在编辑的文档的路径(不含文件名和扩展名)到剪贴板
+ *
+ * @author     Guapo
+ * @version    v1.0
+ */
+function copyPath()
+{
+	if(document.Saved)
+	{
+		document.CopyPath();
+	}
+	else
+	{
+		alert("请保存文件后再执行此命令");
+	}
+}
+
+
+/**
+ * 删除当前正在编辑文档的行首的所有空格(包含Tab键)
+ *
+ * @author     Guapo
+ * @version    v1.0
+ */
+function deleteLineStartBlank()
+{
+	document.selection.Replace("^\\s*","",eeFindNext | eeReplaceAll | eeFindReplaceRegExp);
+}
+
+
+/**
+ * 删除当前正在编辑文档的行尾的所有空格(包含Tab键)
+ *
+ * @author     Guapo
+ * @version    v1.0
+ */
+function deleteLineEndBlank()
+{
+	document.selection.Replace("\\s*$","",eeFindNext | eeReplaceAll | eeFindReplaceRegExp);
+}
+
+
+/**
+ * 将当前正在编辑文档中的所有>=两个的相连空格替换成一个，只支持英文半角空格
+ *
+ * @author     Guapo
+ * @version    v1.0
+ */
+function replace2MoreBlank()
+{
+	document.selection.Replace(" {2,}"," ",eeFindNext | eeReplaceAll | eeFindReplaceRegExp);
+}
+
+
+/**
+ * 为当前正在编辑文档中的所有行的行首添加特定的字符串
+ *
+ * @author     Guapo
+ * @version    v1.0
+ */
+function addString2LineStart()
+{
+	var s=prompt("请问您要在行首添加什么字符串呢？","在这里输入要添加的字符串");
+	if(s==""||s==null)
+	{
+		return;
+	}
+	var t="\\0";
+	document.selection.Replace("(^.)|(^\\n)",s+t,eeFindNext | eeReplaceAll | eeFindReplaceRegExp);
+	document.HighlightFind=false;
+}
+
+
+/**
+ * 为当前正在编辑文档中的所有行的行尾添加特定的字符串
+ *
+ * @author     Guapo
+ * @version    v1.0
+ */
+function addString2LineEnd()
+{
+	var s=prompt("请问您要在行尾添加什么字符串呢？","在这里输入要添加的字符串");
+	if(s==""||s==null)
+	{
+		return;
+	}
+	var t="\\0";
+
+	document.selection.Replace("(.$)|(^\\n$)",t+s,eeFindNext | eeReplaceAll | eeFindReplaceRegExp);
+	document.HighlightFind=false;
+}
+
+
+function isN(s)
+{
+	if(s==null||s=="")
+	{
+		return false;
+	}
+	var array=s.match(/\d+/);
+	if(array)
+	{
+		if(s==array[0])
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	else
+	{
+		return false;
+	}
+}
+
+
+function rearrangeTabSplitString()
+{
+	var input=prompt("本程序用来重新组织用\\t分开的字符串，##x##表示第x列","");
+	if(input==""||input==null)
+	{
+		alert("输入为空，请重新输入");
+		return;
+	}
+	
+	document.selection.EndOfDocument();
+	var	howManyLines/*文档的总行数，如15，表示从1到15共15行*/=document.selection.GetActivePointY(eePosLogical);
+
+	var array=[];/*存放当前行字符串形成的数组*/
+	var allLine=[];/*存放所有行字符串形成的数组*/
+	var currentLine;/*光标所在行的内容*/
+
+	document.selection.StartOfDocument();
+	document.selection.StartOfLine(false,eeLineView | eeLineHomeText);
+
+	for(var i=1;i<=howManyLines;i++)
+	{
+		document.selection.EndOfLine(true,eeLineView);
+		document.selection.Copy(eeCopyUnicode);
+		currentLine=document.selection.Text;
+		array=currentLine.split(/\t/);
+		allLine.push(array);
+		document.selection.StartOfLine(false,eeLineView | eeLineHomeText);
+		document.selection.LineDown(false,1);
+	}
+
+	var matchResult=input.match(/##\d+##/g);  // Returns ["##1##", "##2##", "##3##"]
+	var matchResultLength=matchResult.length;
+	
+	var positionArray=[];	//Returns [1,2,3]
+	for(var i=0;i<matchResultLength;i++)
+	{
+		var temp=matchResult[i].match(/(\d+)/);
+		positionArray.push(temp[1]-0);
+	}
+	var positionArrayLength=positionArray.length;
+
+	var allLineLength=allLine.length;
+	var result=[];
+	for(var i=0;i<allLineLength;i++)
+	{
+		var s=input;
+		for(var j=0;j<matchResultLength;j++)
+		{
+			var p=positionArray[j]-1;
+			s=s.replace(matchResult[j],allLine[i][p]);
+		}
+		result.push(s);
+	}
+	
+	
+	editor.NewFile();
+	for(i=0;i<result.length;i++)
+	{
+		document.writeln(result[i]);
+	}
+	return;
+}
+
+function about()
+{
+	var s="这是我为了自己编辑文件时更文件写的一个emeditor的插件，多数命令\n都是见名知意，这里解释一下\"重新组织用Tab分开的字符串\"的用法\n\n";
+	s+="有时你可能需要写大量像下面这样的代码\n";
+	s+="var name=document.getElementById(\"name\");//姓名\n";
+	s+="var age=document.getElementById(\"age\");//年龄\n";
+	s+="var sex=document.getElementById(\"sex\");//性别\n";
+	s+="var major=document.getElementById(\"major\");//专业\n\n";
+	s+="这是随意举的例子，观察发现每行都很象，每行不同的只是变量名和后\n面的中文，于是可以新建一文件，输入下面的文字，之间用tab隔开，如下：\n\n";
+	s+="name    姓名\n";
+	s+="age     年龄\n";
+	s+="sex     性别\n";
+	s+="major   专业\n\n";
+s+="然后调用\"重新组织用Tab分开的字符串\"，输入\n";
+s+="var ##1##=document.getElementById(\"##1##\");//##2##\n";
+s+="其中##n##表示用tab分开字符串中的第几个（从1算起）。\n";
+s+="程序会将上面的代码自动生成，我想我说的应该清楚了\n\n\n";
+
+s+="提示：从word文件中的表格里复制过来的数据本身就是用tab分开的，\n可以直接使用这个命令。所以如果你的设计说明书中的变量都是在表格\n里，那么有可能会比较方便。\n";
+
+	
+	var me="\n\nAuthor:Guapo\nEmail:yangshuai@gmail.com";
+	
+	alert(s+me);
+}
+
+
+mainMenu=CreatePopupMenu();
+
+mainMenu.Add( "重新组织用Tab分开的字符串", 102);
+mainMenu.Add( "", 0, eeMenuSeparator );
+mainMenu.Add("拷贝路径(不含文件名)",1);
+mainMenu.Add("拷贝完整路径(含文件名)",2);
+mainMenu.Add( "", 0, eeMenuSeparator );
+mainMenu.Add("利用正则表达式提取字符串",3);
+mainMenu.Add( "", 0, eeMenuSeparator );
+mainMenu.Add("将>=两个的相连空格替换成一个",8);
+mainMenu.Add( "", 0, eeMenuSeparator );
+mainMenu.Add("删除行首所有空格",4);
+mainMenu.Add("删除行尾所有空格",5);
+mainMenu.Add("在行首添加特定的字符串",10);
+mainMenu.Add("在行尾添加特定的字符串",11);
+mainMenu.Add( "", 0, eeMenuSeparator );
+mainMenu.Add("需要帮助？",100);
+var witchItem=mainMenu.Track();
+
+switch(witchItem)
+{
+	case 1:
+		copyPath();
+		break;
+	case 2:
+		copyFullName()
+		break;
+	case 3:
+		getText();
+		break;
+	case 4:
+		deleteLineStartBlank();
+		break;
+	case 5:
+		deleteLineEndBlank();
+		break;
+	case 8:
+		replace2MoreBlank();
+		break;
+	case 10:
+		addString2LineStart();
+		break;
+	case 11:
+		addString2LineEnd();
+		break;
+	case 100:
+		about();
+		break;
+	case 102://重组用\t分开的字符串
+		rearrangeTabSplitString();
+		break;
+	default:
+		break;
+}
