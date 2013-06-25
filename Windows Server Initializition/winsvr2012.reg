@@ -1,0 +1,58 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon]
+"Shell"="explorer.exe, explorer.exe"
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system]
+"shutdownwithoutlogon"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System]
+"DisableCAD"=dword:00000001
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Reliability]
+"ShutdownreasonOn"=dword:00000000
+
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\PriorityControl]
+"Win32PrioritySeparation"=dword:00000026
+
+
+;[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}]
+;"IsInstalled"=dword:00000000
+;[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}]
+;"IsInstalled"=dword:00000000
+
+;Rundll32 iesetup.dll, IEHardenLMSettings
+;Rundll32 iesetup.dll, IEHardenUser
+;Rundll32 iesetup.dll, IEHardenAdmin
+
+[HKEY_LOCAL_MACHINE\Software\Microsoft\ServerManager]
+"DoNotOpenServerManagerAtLogon"=dword:00000001
+
+
+;MinimumPasswordLength = 0
+;PasswordComplexity = 0
+
+[HKEY_CLASSES_ROOT\.iso]
+@="Windows.IsoFile"
+
+[HKEY_CLASSES_ROOT\.iso\OpenWithProgids]
+"Windows.IsoFile"=""
+
+
+[HKEY_CLASSES_ROOT\.vhd]
+@="Windows.VhdFile"
+
+
+;[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon]
+;"DefaultUserName"="Administrator"
+;"AutoAdminLogon"="1"
+;;Please Change Your Password
+;"DefaultPassword"="MsDevN.com"
+
+
+;SetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Server" -ot reg -actn setowner -ownr "n:S-1-5-32-544;s:y">nulSetACL.exe -on "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Server" -ot reg -actn ace -ace "n:S-1-5-32-544;s:y;p:full">nul
+;reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Server" /f /v ClientExperienceEnabled /t REG_DWORD /d 0 >nul
