@@ -1,6 +1,10 @@
 Numpad2::Volume_Down
 Numpad8::Volume_Up
-!Space::^+!NumpadSub
+Numpad0::Volume_Mute
+!Space::^!+NumpadSub
+
+;!Space::Run C:\apps\Everything\Everything.exe
+LWin & f::Run C:\apps\Everything\Everything.exe
 
 ;LWin & c::Run explorer shell:::{21EC2020-3AEA-1069-A2DD-08002B30309D}
 LWin & p::Run C:\apps\EmEditor\EmEditor.exe
@@ -10,7 +14,7 @@ AppsKey::Run C:\Program Files (x86)\Internet Download Manager\IDMan.exe
 LWin & e::Run C:\apps\totalcmd\TOTALCMD64.EXE
 
 Numpad5::Run c:\apps\foobar2000\foobar2000.exe /playpause
-Numpad0::Run c:\apps\foobar2000\foobar2000.exe /show
+Numpad7::Run c:\apps\foobar2000\foobar2000.exe /show
 Numpad4::Run c:\apps\foobar2000\foobar2000.exe /prev
 Numpad6::Run c:\apps\foobar2000\foobar2000.exe /next
 ;RWin::Run c:\apps\foobar2000\foobar2000.exe /show
@@ -18,7 +22,7 @@ Numpad6::Run c:\apps\foobar2000\foobar2000.exe /next
 NumpadDot::Run c:\apps\DAUM\PotPlayer\PotPlayerMini64.exe
 LWin & c::Run control.exe
 LWin & r::Run, %comspec%
-LWin & f::Run C:\apps\Everything\Everything.exe
+
 Pause::Run C:\Program Files\ShrewSoft\VPN Client\ipsecc.exe -r "cosbeta" -u hawktang1 -p hawktang20011 -a
 +Pause::Run c:\Program Files\ShrewSoft\VPN Client\ipseca.exe
 
